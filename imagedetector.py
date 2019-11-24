@@ -109,6 +109,7 @@ class image:
             print('Angle', self.findTheAngleArrayContour(c))
             print('Side Length', self.findTheLengthSideArrayContour(c))
             cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
+            cv.imwrite('data-set/hasil.jpg', self.image)
 
 if __name__ == "__main__":
     image1 = image('image1')
