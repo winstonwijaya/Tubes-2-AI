@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from imagedetector import *
 
 SHAPES = [
     'Segitiga Lancip',
@@ -16,7 +17,6 @@ SHAPES = [
     'Segi Lima Sama Sisi',
     'Segi Enam Sama Sisi',
 ]
-
 
 def showSelectedImage(path):
     window.FindElement('_BOX1_').Update(image_filename=path, image_subsample=10, image_size=(500, 450),
@@ -64,12 +64,12 @@ box1 = sg.Button(image_filename="white.png", image_size=(500, 450), auto_size_bu
 box2 = sg.Button(image_filename="white.png", image_size=(500, 450), auto_size_button=False, key="_BOX2_",
                  size=(500, 450), border_width=3)
 menu_wrapper = sg.Frame(title="", layout=option_layout, size=(366, 450), background_color="#f3f3f3", border_width=0)
-# box3 = sg.Image(filename="white.png", key="box3", size=(455, 318))
-# box4 = sg.Image(filename="white.png", key="box4", size=(455, 318))
-# box5 = sg.Image(filename="white.png", key="box5", size=(455, 318))
-box3 = sg.Output(size=(60, 50), background_color="#ffffff", key="_RESULTS_")
-box4 = sg.Output(size=(60, 50), background_color="#ffffff", key="_FACTS_")
-box5 = sg.Output(size=(60, 50), background_color="#ffffff", key="_RULES_")
+box3 = sg.Image(filename="white.png", key="box3", size=(455, 318))
+box4 = sg.Image(filename="white.png", key="box4", size=(455, 318))
+box5 = sg.Image(filename="white.png", key="box5", size=(455, 318))
+# box3 = sg.Output(size=(60, 50), background_color="#ffffff", key="_RESULTS_")
+# box4 = sg.Output(size=(60, 50), background_color="#ffffff", key="_FACTS_")
+# box5 = sg.Output(size=(60, 50), background_color="#ffffff", key="_RULES_")
 layout = [
     [label1, label2],
     [box1, box2, menu_wrapper],
@@ -81,17 +81,23 @@ window = sg.Window('Image Processing', grab_anywhere=True, background_color='#f3
 
 while True:
     event, values = window.Read()
+    
+    selectedShape = 2
+
     if event is None or event == 'Exit':
         break
 
     if event == '_CHOOSE_':
         showSelectedImage(values[event])
-        handleImageInput(values[event])
+
+        image1 = image('image1')
+        image1.inputImage(values[event])
+        t = image1.findContoursImage()
+        image1.iterateContourInContours(SHAPES[selectedShape])
 
     if event == '_CHOOSESHAPE_':
-        # print(values[event])
-
         val = SHAPES.index(values[event][0])
+        selectedShape = val
         showSelectedShape(val)
 
 window.Close()

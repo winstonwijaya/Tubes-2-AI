@@ -7,6 +7,22 @@ import clipspy as cl
 precision = 5
 epsilon = 0.00000000001
 
+SHAPES_MAP = {
+    'Segitiga Lancip' : '(shape triangle_acute)',
+    'Segitiga Tumpul' : '(shape triangle_obtuse)',
+    'Segitiga Siku-siku' : '(shape triangle_right)',
+    'Segitiga Sama Kaki dan Siku-siku' : '(shape triangle_isosceles_right)',
+    'Segitiga Sama Kaki dan Tumpul' : '(shape triangle_isosceles_obtuse)',
+    'Segitiga Sama Kaki dan Lancip' : '(shape triangle_isosceles_acute)',
+    'Segitiga Sama Sisi' : '(shape triangle_equilateral)',
+    'Jajaran Genjang Beraturan' : '(shape )',
+    'Layang-layang' : '(shape kite)',
+    'Trapezium Sama Kaki' : '(shape trapezoidal_isosceles)',
+    'Trapezium Rata Kanan' : '(shape trapezoidal_right)',
+    'Trapezium Rata Kiri' : '(shape trapezoidal_left)',
+    'Segi Lima Sama Sisi' : '(shape pentagon)',
+    'Segi Enam Sama Sisi' : '(shape hexagon)',
+}
 class image:
     def __init__(self, name):
         self.name = name
@@ -80,7 +96,7 @@ class image:
         res = []
         for i in range(0, length):
             leng = self.findLengthTwoPoint(appr[i][0], appr[(i+1)%length][0])
-            res.append(leng)
+            res.append(int(leng))
         return res
 
     def findTheAngleArrayContour(self, c):
@@ -92,6 +108,7 @@ class image:
             # find the angle p[i], p[(i+1)%length], p[(i+2)%length]
             print(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0])
             res.append(self.findTheAngleThreePoint(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0]))
+            res[i] = int(res[i])
         sumAngle = (length-2)*180
         tot = 0
         for i in res:
@@ -101,7 +118,7 @@ class image:
                 res[i] = 360-res[i]
         return res
 
-    def iterateContourInContours(self):
+    def iterateContourInContours(self, shape):
         it = 1
         matchContour = []
         for c in self.contours:
@@ -109,15 +126,24 @@ class image:
             # print('Angle', self.findTheAngleArrayContour(c))
             # print('Side Length', self.findTheLengthSideArrayContour(c))
             tmp = []
-            tmp.append("(sides " + ' '.join(self.findTheLengthSideArrayContour()) + ")")
-            tmp.append("(angles " + ' '.join(self.findTheAngleArrayContour() + ")")
-            facts = cl.findFact(tmp)
+            tmp.append("(sides " + ' '.join(str(self.findTheLengthSideArrayContour(c))) + ")")
+            tmp.append("(angles " + ' '.join(str(self.findTheAngleArrayContour(c))) + ")")
+            fakta = cl.findFact(tmp)
             
+            check = False
+            for j in fakta:
+                if (SHAPES_MAP[shape] == j):
+                    check = True
+                    break
+            
+            if (check) :
+                matchContour.append(c)
 
+        for c in matchContour:
+            cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
         
+        cv.imwrite('data-set/hasil.png', self.image)
         
-        cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
-        cv.imwrite('data-set/hasil'+str(it)+'.jpg', self.image)
 
 if __name__ == "__main__":
     image1 = image('image1')
