@@ -2,6 +2,7 @@ import numpy as np
 import cv2 as cv
 import imutils
 import math
+import clipspy as cl
 
 precision = 5
 epsilon = 0.00000000001
@@ -102,14 +103,21 @@ class image:
 
     def iterateContourInContours(self):
         it = 1
+        matchContour = []
         for c in self.contours:
             cx, cy = self.findCenterContour(c)
-            print(it, self.findTheNumberOfSidesContour(c))
-            # print(self.findTheApproxPolygonContour(c))
-            print('Angle', self.findTheAngleArrayContour(c))
-            print('Side Length', self.findTheLengthSideArrayContour(c))
-            cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
-            cv.imwrite('data-set/hasil.jpg', self.image)
+            # print('Angle', self.findTheAngleArrayContour(c))
+            # print('Side Length', self.findTheLengthSideArrayContour(c))
+            tmp = []
+            tmp.append("(sides " + ' '.join(self.findTheLengthSideArrayContour()) + ")")
+            tmp.append("(angles " + ' '.join(self.findTheAngleArrayContour() + ")")
+            facts = cl.findFact(tmp)
+            
+
+        
+        
+        cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
+        cv.imwrite('data-set/hasil'+str(it)+'.jpg', self.image)
 
 if __name__ == "__main__":
     image1 = image('image1')
