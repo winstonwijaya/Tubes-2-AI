@@ -1,23 +1,144 @@
+(defrule is_triangle 
+    (angles ? ? ?)
+=>
+    (assert (shape triangle))
+)
+
+(defrule is_triangle_1
+    (sides ? ? ?)
+=>
+    (assert (shape triangle))
+)
+
+(defrule is_triangle_equilateral
+    (sides ?x ?x ?x)
+=>
+    (assert (shape equilateral_triangle)) 
+)
+
+(defrule is_triangle_acute
+    (angles ?x ?y ?z)
+    (test(< ?x 90))
+    (test(< ?y 90))
+    (test(< ?z 90))
+=>
+    (assert (shape triange_acute))
+)
+
+(defrule is_triangle_obtuse
+    (angles ?x ?y ?z)
+    (or (test(> ?x 90)) (test(> ?y 90)) (test(> ?z 90)))
+=>
+    (assert (shape triange_obtuse))
+)
+
+(defrule is_triangle_right
+    (angles ?x ?y ?z)
+    (or
+        (test(= ?x 90))
+        (test(= ?y 90))
+        (test(= ?z 90))
+    )
+=>
+    (assert (shape triangle_right))
+)
+
+(defrule is_triangle_isosceles
+    (sides ?x ?y ?z)
+    (or 
+        (test (= ?x ?y))
+        (test (= ?x ?z))
+        (test (= ?y ?z))
+    )
+=>
+    (assert (shape triangle_isosceles))
+)
+
+(defrule is_triangle_isosceles_right
+    (sides ?x ?y ?z)
+    (angles ?i ?j ?k)
+    (shape triangle_isosceles)
+    (shape triangle_right)
+=>
+    (assert (shape triangle_isosceles_right))
+)
+
+
 (defrule is_rectangle 
     (angles ? ? ? ?)
 =>
     (assert (shape tetragon))
 )
 
-(defrule is_rectangle1
+(defrule is_rectangle_1
     (sides ? ? ? ?)
 =>
     (assert (shape tetragon))
 )
 
-(defrule is_triange_acute
-    (angles ?x ?y ?z)
-    (< ?x 90)
-    (< ?y 90)
-    (< ?z 90)
+(defrule is_square
+    (angles ?x ?x ?x ?x)
 =>
-    (assert (shape triange_acute))
+    (assert (shape square))
 )
+
+(defrule is_square_1
+    (sides ?x ?x ?x ?x)
+=>
+    (assert (shape square))
+)
+
+(defrule is_kite
+    (sides ?x ?x ?y ?y)
+=>
+    (assert(shape kite))
+)
+
+(defrule is_kite_1
+    (sides ?x ?y ?y ?x)
+=>
+    (assert(shape kite))
+)
+
+(defrule is_trapezoidal_right
+    (angles ?x ? ? ?x)
+    (test(= ?x 90))
+=>
+    (assert(shape trapezoidal_right))
+)
+
+
+(defrule is_trapezoidal_left
+(angles ? ?x ?x ?)
+(test(eq ?x 90))
+=>
+(assert(shape trapezoidal_left))
+)
+
+(defrule is_trapezoidal_isosceles
+(sides ?x ? ?x ?)
+=>
+(assert(shape trapezoidal_isosceles))
+)
+
+(defrule is_trapezoidal_isosceles1
+(sides ? ?x ? ?x)
+=>
+(assert(shape trapezoidal_isosceles))
+)
+
+(defrule is_pentagon
+(angles ? ? ? ? ?)
+=>
+(assert (shape pentagon))
+)
+
+(defrule is_hexagon
+(angles ? ? ? ? ? ?)
+=>
+(assert (shape hexagon))
+)
+
 
 (defrule print-konklus ""(shape ?item)
 =>
