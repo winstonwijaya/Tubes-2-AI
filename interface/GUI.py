@@ -1,5 +1,11 @@
 import PySimpleGUI as sg
 
+
+def showSelectedImage(path):
+    print('masok')
+    window.FindElement('_BOX1_').Update(image_filename=path, image_subsample=10, image_size=(500, 450), button_color=sg.TRANSPARENT_BUTTON)
+    window.refresh()
+
 tree_layout = [[sg.Listbox(values=[
     'Segitiga lancip',
     'Segitiga tumpul',
@@ -17,10 +23,14 @@ tree_layout = [[sg.Listbox(values=[
     'segi enam sama sisi',
 ], size=(30, 13))]]
 
-btn1 = sg.Button(button_text="btn1", size=(30,1), key="btn1")
-btn3 = sg.Button(button_text="btn3", size=(30,1), key="btn3")
-btn4 = sg.Button(button_text="btn4", size=(30,1), key="btn4")
-btn2 = sg.Button(button_text="btn2", size=(30,1), key="btn2")
+window = sg.Window('columns')
+
+# btn1 = sg.FileBrowse( button_text="Open Image", size=(14,1), key="btn1", button_color=('white','#475841'))
+btn1 = sg.FileBrowse(file_types=(("Image Files", "*.png"),), button_text="Open Image", size=(30,1), key="_CHOOSE_",
+                     enable_events=True, button_color=('white', '#475841'))
+btn2 = sg.Button(button_text="Open Rule Editor", size=(30,1), key="btn2", button_color=('white', '#475841'))
+btn3 = sg.Button(button_text="Show Rules", size=(30,1), key="btn3", button_color=('white', '#475841'))
+btn4 = sg.Button(button_text="Show Facts", size=(30,1), key="btn4", button_color=('white', '#475841'))
 button_layout = [
     [btn1],
     [btn2],
@@ -35,23 +45,26 @@ option_layout = [
     [tree_wrapper]
 ]
 
-box1 = sg.Image(filename="white.png", key="box1", size=(500, 450))
+box1 = sg.Button(image_filename="white.png", image_size=(500, 450), auto_size_button=False,key="_BOX1_", size=(500, 450))
 box2 = sg.Image(filename="white.png", key="box2", size=(500, 450))
-menu_wrapper = sg.Frame(title="", layout=option_layout, size=(366,450), background_color="white")
+menu_wrapper = sg.Frame(title="Menu", layout=option_layout, size=(366,450), background_color="#f3f3f3", border_width=0)
 box3 = sg.Image(filename="white.png", key="box3", size=(455, 318))
 box4 = sg.Image(filename="white.png", key="box4", size=(455, 318))
-box5 = sg.Image(filename="white.png", key="box5", size=(456, 318))
-
+box5 = sg.Image(filename="white.png", key="box5", size=(455, 318))
 layout = [
     [box1, box2, menu_wrapper],
     [box3, box4, box5]
 ]
 
-window = sg.Window('Image Processing', grab_anywhere=True, background_color='green', layout=layout, size=(1366, 768))
+window = sg.Window('Image Processing', grab_anywhere=True, background_color='#f3f3f3', layout=layout, size=(1366, 768))
 
 while True:
     event, values = window.Read()
     if event is None or event == 'Exit':
         break
+
+    if event == '_CHOOSE_':
+        print(values[event])
+        showSelectedImage(values[event])
 
 window.Close()
