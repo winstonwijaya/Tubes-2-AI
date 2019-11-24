@@ -1,27 +1,31 @@
 import PySimpleGUI as sg
 
+SHAPES = [
+    'Segitiga Lancip',
+    'Segitiga Tumpul',
+    'Segitiga Siku-siku',
+    'Segitiga Sama Kaki dan Siku-siku',
+    'Segitiga Sama Kaki dan Tumpul',
+    'Segitiga Sama Kaki dan Lancip',
+    'Segitiga Sama Sisi',
+    'Jajaran Genjang Beraturan',
+    'Layang-layang',
+    'Trapezium Sama Kaki',
+    'Trapezium Rata Kanan',
+    'Trapezium Rata Kiri',
+    'Segi Lima Sama Sisi',
+    'Segi Enam Sama Sisi',
+]
 
 def showSelectedImage(path):
-    print('masok')
     window.FindElement('_BOX1_').Update(image_filename=path, image_subsample=10, image_size=(500, 450), button_color=sg.TRANSPARENT_BUTTON)
     window.refresh()
 
-tree_layout = [[sg.Listbox(values=[
-    'Segitiga lancip',
-    'Segitiga tumpul',
-    'Segitiga siku-siku',
-    'Segitiga sama kaki dan siku-siku',
-    'Segitiga sama kaki dan tumpul',
-    'Segitiga sama kaki dan lancip',
-    'Segitiga sama sisi',
-    'Jajaran genjang beraturan',
-    'Layang-layang',
-    'Trapezium sama kaki',
-    'Trapezium rata kanan',
-    'Trapezium rata kiri',
-    'segi lima sama sisi',
-    'segi enam sama sisi',
-], size=(30, 13))]]
+def showSelectedShape(val):
+    window.FindElement('_BOX2_').Update(image_filename="img/"+str(val)+".png", image_subsample=10, image_size=(500, 450), button_color=sg.TRANSPARENT_BUTTON)
+    window.refresh()
+
+tree_layout = [[sg.Listbox(values=SHAPES, size=(30, 13), key="_CHOOSESHAPE_", enable_events=True)]]
 
 window = sg.Window('columns')
 
@@ -46,7 +50,7 @@ option_layout = [
 ]
 
 box1 = sg.Button(image_filename="white.png", image_size=(500, 450), auto_size_button=False,key="_BOX1_", size=(500, 450))
-box2 = sg.Image(filename="white.png", key="box2", size=(500, 450))
+box2 = sg.Button(image_filename="white.png", image_size=(500, 450), auto_size_button=False,key="_BOX2_", size=(500, 450))
 menu_wrapper = sg.Frame(title="Menu", layout=option_layout, size=(366,450), background_color="#f3f3f3", border_width=0)
 box3 = sg.Image(filename="white.png", key="box3", size=(455, 318))
 box4 = sg.Image(filename="white.png", key="box4", size=(455, 318))
@@ -64,7 +68,13 @@ while True:
         break
 
     if event == '_CHOOSE_':
-        print(values[event])
+        # print(values[event])
         showSelectedImage(values[event])
+
+    if event == '_CHOOSESHAPE_':
+        # print(values[event])
+
+        val = SHAPES.index(values[event][0])
+        showSelectedShape(val)
 
 window.Close()
