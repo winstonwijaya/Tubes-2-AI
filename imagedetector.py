@@ -3,6 +3,9 @@ import cv2 as cv
 import imutils
 import math
 
+precision = 5
+epsilon = 0.00000000001
+
 class image:
     def __init__(self, name):
         self.name = name
@@ -88,6 +91,13 @@ class image:
             # find the angle p[i], p[(i+1)%length], p[(i+2)%length]
             print(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0])
             res.append(self.findTheAngleThreePoint(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0]))
+        sumAngle = (length-2)*180
+        tot = 0
+        for i in res:
+            tot += i
+        if (tot > sumAngle+precision):
+            for i in range(0, length):
+                res[i] = 360-res[i]
         return res
 
     def iterateContourInContours(self):
@@ -99,7 +109,6 @@ class image:
             print('Angle', self.findTheAngleArrayContour(c))
             print('Side Length', self.findTheLengthSideArrayContour(c))
             cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
-
 
 if __name__ == "__main__":
     image1 = image('image1')
