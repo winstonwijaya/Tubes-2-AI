@@ -18,16 +18,16 @@
 
 (defrule is_triangle_acute
     (angles ?x ?y ?z)
-    (test(< ?x 90))
-    (test(< ?y 90))
-    (test(< ?z 90))
+    (test(< ?x 93))
+    (test(< ?y 93))
+    (test(< ?z 93))
 =>
     (assert (shape triange_acute))
 )
 
 (defrule is_triangle_obtuse
     (angles ?x ?y ?z)
-    (or (test(> ?x 90)) (test(> ?y 90)) (test(> ?z 90)))
+    (or (test(>= ?x 93)) (test(>= ?y 93)) (test(>= ?z 93)))
 =>
     (assert (shape triange_obtuse))
 )
@@ -35,9 +35,9 @@
 (defrule is_triangle_right
     (angles ?x ?y ?z)
     (or
-        (test(= ?x 90))
-        (test(= ?y 90))
-        (test(= ?z 90))
+        (and (test(<= ?x 93)) (test(>= ?x 87)))
+        (and (test(<= ?y 93)) (test(>= ?y 87)))
+        (and (test(<= ?z 93)) (test(>= ?z 87)))
     )
 =>
     (assert (shape triangle_right))

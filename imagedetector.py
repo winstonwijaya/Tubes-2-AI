@@ -96,19 +96,19 @@ class image:
         res = []
         for i in range(0, length):
             leng = self.findLengthTwoPoint(appr[i][0], appr[(i+1)%length][0])
-            res.append(int(leng))
+            res.append(int((leng)/5)*5)
         return res
 
     def findTheAngleArrayContour(self, c):
         appr = self.findTheApproxPolygonContour(c)
         length = self.findTheNumberOfSidesContour(c)
-        print(appr)
+        # print(appr)
         res = []
         for i in range(0, length):
             # find the angle p[i], p[(i+1)%length], p[(i+2)%length]
-            print(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0])
+            # print(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0])
             res.append(self.findTheAngleThreePoint(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0]))
-            res[i] = int(res[i])
+            res[i] = int((res[i])/5)*5
         sumAngle = (length-2)*180
         tot = 0
         for i in res:
@@ -123,26 +123,29 @@ class image:
         matchContour = []
         for c in self.contours:
             cx, cy = self.findCenterContour(c)
-            # print('Angle', self.findTheAngleArrayContour(c))
-            # print('Side Length', self.findTheLengthSideArrayContour(c))
+            print('Angle', self.findTheAngleArrayContour(c))
+            print('Side Length', self.findTheLengthSideArrayContour(c))
             tmp = []
-            tmp.append("(sides " + ' '.join(str(self.findTheLengthSideArrayContour(c))) + ")")
-            tmp.append("(angles " + ' '.join(str(self.findTheAngleArrayContour(c))) + ")")
+            tmp.append("(sides " + ''.join(str(self.findTheLengthSideArrayContour(c))) + ")")
+            tmp.append("(angles " + ''.join(str(self.findTheAngleArrayContour(c))) + ")")
             fakta = cl.findFact(tmp)
             
             check = False
             for j in fakta:
+                print(j)
                 if (SHAPES_MAP[shape] == j):
                     check = True
                     break
             
             if (check) :
+                print("ada yang masuk")
                 matchContour.append(c)
 
         for c in matchContour:
-            cv.drawContours(self.image, [c], -1, (255, 0, 0, 1), 2)
+            cv.drawContours(self.image, [c], -1, (255,255,0), 10)
         
         cv.imwrite('data-set/hasil.png', self.image)
+        return fakta
         
 
 if __name__ == "__main__":
