@@ -85,8 +85,8 @@ while True:
         break
 
     if event == '_CHOOSE_':
-        print(values[event])
         showSelectedImage(values[event])
+        handleImageInput(values[event])
 
     if event == '_CHOOSESHAPE_':
         # print(values[event])
