@@ -4,12 +4,6 @@
     (assert (shape triangle))
 )
 
-(defrule is_triangle_1
-    (sides ? ? ?)
-=>
-    (assert (shape triangle))
-)
-
 (defrule is_triangle_equilateral
     (sides ?x ?x ?x)
 =>
@@ -27,7 +21,7 @@
 
 (defrule is_triangle_obtuse
     (angles ?x ?y ?z)
-    (or (test(>= ?x 93)) (test(>= ?y 93)) (test(>= ?z 93)))
+    (or (test(>= ?x 90)) (test(>= ?y 90)) (test(>= ?z 90)))
 =>
     (assert (shape triange_obtuse))
 )
@@ -35,9 +29,9 @@
 (defrule is_triangle_right
     (angles ?x ?y ?z)
     (or
-        (and (test(<= ?x 93)) (test(>= ?x 87)))
-        (and (test(<= ?y 93)) (test(>= ?y 87)))
-        (and (test(<= ?z 93)) (test(>= ?z 87)))
+        (and (test(<= ?x 91)) (test(>= ?x 89)))
+        (and (test(<= ?y 91)) (test(>= ?y 89)))
+        (and (test(<= ?z 91)) (test(>= ?z 89)))
     )
 =>
     (assert (shape triangle_right))
@@ -82,12 +76,6 @@
     (assert (shape square))
 )
 
-(defrule is_square_1
-    (sides ?x ?x ?x ?x)
-=>
-    (assert (shape square))
-)
-
 (defrule is_kite
     (sides ?x ?x ?y ?y)
 =>
@@ -106,7 +94,6 @@
 =>
     (assert(shape trapezoidal_right))
 )
-
 
 (defrule is_trapezoidal_left
 (angles ? ?x ?x ?)

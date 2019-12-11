@@ -129,16 +129,13 @@ class image:
             tmp.append("(sides " + ''.join(str(self.findTheLengthSideArrayContour(c))) + ")")
             tmp.append("(angles " + ''.join(str(self.findTheAngleArrayContour(c))) + ")")
             fakta = cl.findFact(tmp)
-            
             check = False
             for j in fakta:
-                print(j)
                 if (SHAPES_MAP[shape] == j):
                     check = True
                     break
             
             if (check) :
-                print("ada yang masuk")
                 matchContour.append(c)
 
         for c in matchContour:

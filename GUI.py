@@ -20,17 +20,20 @@ SHAPES = [
 ]
 
 def showSelectedImage(path):
-    window.FindElement('_BOX1_').Update(image_filename=path, image_subsample=5, image_size=(500, 450),
+    window.FindElement('_BOX1_').Update(image_filename=path, 
+                                        image_subsample=5, 
+                                        image_size=(500, 450),
                                         button_color=sg.TRANSPARENT_BUTTON)
     
-
     window.refresh()
 
 
 def showSelectedShape(val):
     root = os.path.abspath("img/" + str(val) + ".png")
-    window.FindElement('_BOX2_').Update(image_filename=root, image_subsample=5,
-                                        image_size=(500, 450), button_color=sg.TRANSPARENT_BUTTON)
+    window.FindElement('_BOX2_').Update(image_filename=root, 
+                                        image_subsample=5,
+                                        image_size=(500, 450), 
+                                        button_color=sg.TRANSPARENT_BUTTON)
     window.refresh()
 
 
@@ -44,8 +47,10 @@ label3 = sg.T("Detection Results", size=(30, 1), pad=((0, 250), (0, 0)), backgro
 label4 = sg.T("Matched Facts", size=(30, 1), pad=((0, 250), (0, 0)), background_color="#f3f3f3")
 label5 = sg.T("Hit Rules", size=(30, 1), pad=((0, 250), (0, 0)), background_color="#f3f3f3")
 
-btn1 = sg.FileBrowse(file_types=(("Image Files", "*.png"),), button_text="Open Image", size=(30, 1), key="_CHOOSE_",
-                     enable_events=True, button_color=('white', '#475841'))
+btn1 = sg.FileBrowse(file_types=(("Image Files", "*.png"),), 
+                        button_text="Open Image", size=(30, 1), 
+                        key="_CHOOSE_",
+                        enable_events=True, button_color=('white', '#475841'))
 btn2 = sg.Button(button_text="Open Rule Editor", size=(30, 1), key="btn2", button_color=('white', '#475841'))
 btn3 = sg.Button(button_text="Show Rules", size=(30, 1), key="btn3", button_color=('white', '#475841'))
 btn4 = sg.Button(button_text="Show Facts", size=(30, 1), key="btn4", button_color=('white', '#475841'))
@@ -83,10 +88,11 @@ layout = [
 
 window = sg.Window('Image Processing', grab_anywhere=True, background_color='#f3f3f3', layout=layout, size=(1366, 768))
 
+selectedShape = 2
+
 while True:
     event, values = window.Read()
     
-    selectedShape = 2
 
     if event is None or event == 'Exit':
         break
