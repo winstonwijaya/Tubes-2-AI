@@ -83,10 +83,11 @@ layout = [
 
 window = sg.Window('Image Processing', grab_anywhere=True, background_color='#f3f3f3', layout=layout, size=(1366, 768))
 
+selectedShape = 2
+
 while True:
     event, values = window.Read()
     
-    selectedShape = 2
 
     if event is None or event == 'Exit':
         break
