@@ -15,7 +15,7 @@ SHAPES_MAP = {
     'Segitiga Sama Kaki dan Tumpul' : '(shape triangle_isosceles_obtuse)',
     'Segitiga Sama Kaki dan Lancip' : '(shape triangle_isosceles_acute)',
     'Segitiga Sama Sisi' : '(shape triangle_equilateral)',
-    'Jajaran Genjang Beraturan' : '(shape )',
+    'Jajaran Genjang Beraturan' : '(shape square)',
     'Layang-layang' : '(shape kite)',
     'Trapezium Sama Kaki' : '(shape trapezoidal_isosceles)',
     'Trapezium Rata Kanan' : '(shape trapezoidal_right)',

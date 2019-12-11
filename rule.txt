@@ -14,7 +14,7 @@
     (sides ?x ?y ?z)
     (and (test (<= (abs (- ?x ?y)) 5)) (test (<= (abs (- ?x ?z)) 5)) (test (<= (abs (- ?y ?z)) 5)))
 =>
-    (assert (shape equilateral_triangle)) 
+    (assert (shape triangle_equilateral)) 
 )
 
 (defrule is_triangle_acute

@@ -104,7 +104,7 @@ while True:
         image1.inputImage(values[event])
         t = image1.findContoursImage()
         fact =  image1.iterateContourInContours(SHAPES[selectedShape])
-        print(fact)
+        print('Facts from image: ', fact)
         root = os.path.abspath("data-set/hasil.png")
         window.FindElement('_BOX3_').Update(image_filename=root, image_subsample=5,
                                         image_size=(500, 450), button_color=sg.TRANSPARENT_BUTTON)
