@@ -119,18 +119,42 @@ class image:
         return res
 
     def iterateContourInContours(self, shape):
-        it = 1
         matchContour = []
+        fakta = []
         for c in self.contours:
             cx, cy = self.findCenterContour(c)
-            print('Angle', self.findTheAngleArrayContour(c))
-            print('Side Length', self.findTheLengthSideArrayContour(c))
             tmp = []
-            tmp.append("(sides " + ''.join(str(self.findTheLengthSideArrayContour(c))) + ")")
-            tmp.append("(angles " + ''.join(str(self.findTheAngleArrayContour(c))) + ")")
-            fakta = cl.findFact(tmp)
+            # tmp.append("(sides " + ''.join(str(self.findTheLengthSideArrayContour(c))) + ")")
+            # tmp.append("(angles " + ''.join(str(self.findTheAngleArrayContour(c))) + ")")
+            sisi = self.findTheLengthSideArrayContour(c)
+            sudut = self.findTheAngleArrayContour(c)
+            temp = "(sides "
+            pertama = True
+            for side in sisi:
+                if (pertama):
+                    pertama = False
+                    temp = temp + (str(side))
+                else:
+                    temp = temp + (" " + str(side))
+            temp = temp + ")"
+            tmp.append(temp)
+
+            temp = "(angles "
+            pertama = True
+            for angle in sudut:
+                if (pertama):
+                    pertama = False
+                    temp = temp + (str(angle))
+                else:
+                    temp = temp + (" " + str(angle))
+            temp = temp + ")"
+            tmp.append(temp)
+
+            tmpFakta = cl.findFact(tmp)
+            fakta.append(tmpFakta)
             check = False
-            for j in fakta:
+
+            for j in tmpFakta:
                 if (SHAPES_MAP[shape] == j):
                     check = True
                     break

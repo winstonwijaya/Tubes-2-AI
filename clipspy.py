@@ -4,7 +4,6 @@ def findFact(ListFact):
     env = Environment()
     env.load('rule.txt')
     for fact in ListFact:
-        print(fact)
         env.assert_string(fact)
     res = []
     env.run()

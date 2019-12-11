@@ -11,7 +11,8 @@
 )
 
 (defrule is_triangle_equilateral
-    (sides ?x ?x ?x)
+    (sides ?x ?y ?z)
+    (and (test (<= (abs (- ?x ?y)) 5)) (test (<= (abs (- ?x ?z)) 5)) (test (<= (abs (- ?y ?z)) 5)))
 =>
     (assert (shape equilateral_triangle)) 
 )
@@ -127,11 +128,13 @@
 (assert(shape trapezoidal_isosceles))
 )
 
+
 (defrule is_pentagon
-(angles ? ? ? ? ?)
+(angles ?a ?b ?c ?d ?e)
 =>
 (assert (shape pentagon))
 )
+
 
 (defrule is_hexagon
 (angles ? ? ? ? ? ?)
