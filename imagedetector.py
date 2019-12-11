@@ -102,11 +102,9 @@ class image:
     def findTheAngleArrayContour(self, c):
         appr = self.findTheApproxPolygonContour(c)
         length = self.findTheNumberOfSidesContour(c)
-        # print(appr)
+
         res = []
         for i in range(0, length):
-            # find the angle p[i], p[(i+1)%length], p[(i+2)%length]
-            # print(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0])
             res.append(self.findTheAngleThreePoint(appr[(i-1)%length][0], appr[(i)%length][0], appr[(i+1)%length][0]))
             res[i] = int((res[i])/5)*5
         sumAngle = (length-2)*180
@@ -124,8 +122,6 @@ class image:
         for c in self.contours:
             cx, cy = self.findCenterContour(c)
             tmp = []
-            # tmp.append("(sides " + ''.join(str(self.findTheLengthSideArrayContour(c))) + ")")
-            # tmp.append("(angles " + ''.join(str(self.findTheAngleArrayContour(c))) + ")")
             sisi = self.findTheLengthSideArrayContour(c)
             sudut = self.findTheAngleArrayContour(c)
             temp = "(sides "

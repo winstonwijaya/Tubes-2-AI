@@ -74,11 +74,9 @@ box2 = sg.Button(image_filename="white.png", image_size=(500, 450), auto_size_bu
                  size=(500, 450), border_width=3)
 menu_wrapper = sg.Frame(title="", layout=option_layout, size=(366, 450), background_color="#f3f3f3", border_width=0)
 box3 = sg.Button(image_filename="white.png", key="_BOX3_", size=(455, 318))
-# box4 = sg.Image(filename="white.png", key="box4", size=(455, 318))
 box5 = sg.Image(filename="white.png", key="box5", size=(455, 318))
-# box3 = sg.Output(size=(60, 50), background_color="#ffffff", key="_RESULTS_")
 box4 = sg.Output(size=(60, 50), background_color="#ffffff", key="_FACTS_")
-# box5 = sg.Output(size=(60, 50), background_color="#ffffff", key="_RULES_")
+
 layout = [
     [label1, label2],
     [box1, box2, menu_wrapper],

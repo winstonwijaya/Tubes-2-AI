@@ -4,41 +4,37 @@
     (assert (shape triangle))
 )
 
-(defrule is_triangle_1
-    (sides ? ? ?)
-=>
-    (assert (shape triangle))
-)
-
 (defrule is_triangle_equilateral
     (sides ?x ?y ?z)
-    (and (test (<= (abs (- ?x ?y)) 5)) (test (<= (abs (- ?x ?z)) 5)) (test (<= (abs (- ?y ?z)) 5)))
+    (test (<= (abs (- ?x ?y)) 5))
+    (test (<= (abs (- ?x ?z)) 5))
+    (test (<= (abs (- ?y ?z)) 5))
 =>
     (assert (shape triangle_equilateral)) 
 )
 
 (defrule is_triangle_acute
     (angles ?x ?y ?z)
-    (test(< ?x 91))
-    (test(< ?y 91))
-    (test(< ?z 91))
+    (test(< ?x 92))
+    (test(< ?y 92))
+    (test(< ?z 92))
 =>
-    (assert (shape triange_acute))
+    (assert (shape triangle_acute))
 )
 
 (defrule is_triangle_obtuse
     (angles ?x ?y ?z)
-    (or (test(>= ?x 91)) (test(>= ?y 91)) (test(>= ?z 91)))
+    (or (test(>= ?x 92)) (test(>= ?y 92)) (test(>= ?z 92)))
 =>
-    (assert (shape triange_obtuse))
+    (assert (shape triangle_obtuse))
 )
 
 (defrule is_triangle_right
     (angles ?x ?y ?z)
     (or
-        (and (test(<= ?x 91)) (test(>= ?x 89)))
-        (and (test(<= ?y 91)) (test(>= ?y 89)))
-        (and (test(<= ?z 91)) (test(>= ?z 89)))
+        (and (test(<= ?x 92)) (test(>= ?x 88)))
+        (and (test(<= ?y 92)) (test(>= ?y 88)))
+        (and (test(<= ?z 92)) (test(>= ?z 88)))
     )
 =>
     (assert (shape triangle_right))
@@ -47,9 +43,9 @@
 (defrule is_triangle_isosceles
     (sides ?x ?y ?z)
     (or 
-        (test (= ?x ?y))
-        (test (= ?x ?z))
-        (test (= ?y ?z))
+        (test (<= (abs (- ?x ?y)) 5))
+        (test (<= (abs (- ?x ?z)) 5))
+        (test (<= (abs (- ?z ?y)) 5))
     )
 =>
     (assert (shape triangle_isosceles))
@@ -64,6 +60,23 @@
     (assert (shape triangle_isosceles_right))
 )
 
+(defrule is_triangle_isosceles_acute
+    (sides ?x ?y ?z)
+    (angles ?i ?j ?k)
+    (shape triangle_isosceles)
+    (shape triangle_acute)
+=>
+    (assert (shape triangle_isosceles_acute))
+)
+
+(defrule is_triangle_isosceles_obtuse
+    (sides ?x ?y ?z)
+    (angles ?i ?j ?k)
+    (shape triangle_isosceles)
+    (shape triangle_obtuse)
+=>
+    (assert (shape triangle_isosceles_obtuse))
+)
 
 (defrule is_rectangle 
     (angles ? ? ? ?)
@@ -83,61 +96,50 @@
     (assert (shape square))
 )
 
-(defrule is_square_1
-    (sides ?x ?x ?x ?x)
-=>
-    (assert (shape square))
-)
-
 (defrule is_kite
-    (sides ?x ?x ?y ?y)
-=>
-    (assert(shape kite))
-)
-
-(defrule is_kite_1
-    (sides ?x ?y ?y ?x)
+    (sides ?a ?b ?c ?d)
+    (or 
+        (and (test (<= (abs (- ?a ?b)) 5)) (test (<= (abs (- ?c ?d)) 5)))
+        (and (test (<= (abs (- ?a ?d)) 5)) (test (<= (abs (- ?b ?c)) 5)))
+    )
 =>
     (assert(shape kite))
 )
 
 (defrule is_trapezoidal_right
-    (angles ?x ? ? ?x)
-    (test(= ?x 90))
+    (angles ? ?x ?y ?)
+    (and (test (<= (abs (- ?x 90)) 5)) (test (<= (abs (- ?y 90)) 5)))
 =>
     (assert(shape trapezoidal_right))
 )
 
 
 (defrule is_trapezoidal_left
-(angles ? ?x ?x ?)
-(test(eq ?x 90))
+    (angles ?x ?y ? ?)
+    (and (test (<= (abs (- ?x 90)) 5)) (test (<= (abs (- ?y 90)) 5)))
 =>
-(assert(shape trapezoidal_left))
+    (assert(shape trapezoidal_left))
 )
 
 (defrule is_trapezoidal_isosceles
-(sides ?x ? ?x ?)
+    (sides ?a ?b ?c ?d)
+    (or 
+        (test (<= (abs (- ?a ?c)) 5))
+        (test (<= (abs (- ?b ?d)) 5))
+    )
 =>
 (assert(shape trapezoidal_isosceles))
 )
-
-(defrule is_trapezoidal_isosceles1
-(sides ? ?x ? ?x)
-=>
-(assert(shape trapezoidal_isosceles))
-)
-
 
 (defrule is_pentagon
-(angles ?a ?b ?c ?d ?e)
+    (angles ?a ?b ?c ?d ?e)
 =>
 (assert (shape pentagon))
 )
 
 
 (defrule is_hexagon
-(angles ? ? ? ? ? ?)
+    (angles ? ? ? ? ? ?)
 =>
 (assert (shape hexagon))
 )
