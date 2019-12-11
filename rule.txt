@@ -35,9 +35,9 @@
 (defrule is_triangle_right
     (angles ?x ?y ?z)
     (or
-        (and (test(<= ?x 93)) (test(>= ?x 87)))
-        (and (test(<= ?y 93)) (test(>= ?y 87)))
-        (and (test(<= ?z 93)) (test(>= ?z 87)))
+        (and (test(<= ?x 91)) (test(>= ?x 89)))
+        (and (test(<= ?y 91)) (test(>= ?y 89)))
+        (and (test(<= ?z 91)) (test(>= ?z 89)))
     )
 =>
     (assert (shape triangle_right))
